@@ -2,12 +2,20 @@
 
 这个工作流使用 MiniMax H3 Hybrid B25–49 INT8 底模和 Qwen3-VL Heretic INT8 ConvRot 编码器，从一张参考图生成带声音的 MP4。示例是水面上的红色纸船。
 
+## Windows NVIDIA 一键部署
+
+1. 在 GitHub 点 **Code → Download ZIP**，解压到有足够空间的磁盘，建议预留至少 70 GB。
+2. 双击 `setup-windows-nvidia.bat`。安装器会下载官方 ComfyUI 0.45.0 NVIDIA 便携版和四份 H3 权重，核对 SHA-256 后放进解压目录下的 `ComfyUI_windows_portable/`，并复制工作流和纸船示例图。首次下载约 52.8 GB，下载中断后可再运行同一个安装器继续。
+3. 安装完成后，双击 `ComfyUI_windows_portable/run_minimax_h3_hybrid.bat`。在 [本机 ComfyUI](http://127.0.0.1:8188) 的 **Workflows** 中打开 `minimax-h3-hybrid-r2v`，运行纸船示例。
+
+一键安装适用于 Windows 10/11 x64 和受 CUDA 13 支持的 NVIDIA 显卡。原始便携包及校验值见 [ComfyUI 官方 v0.45.0 发布页](https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.45.0)。
+
 ## 运行环境
 
 - 使用支持 MiniMax H3 原生节点的 [ComfyUI](https://github.com/Comfy-Org/ComfyUI)。示例在 Windows、ComfyUI 0.45.0、RTX 5070 Ti 16 GB 显存和 32 GB 内存的机器上跑通。工作流只用内置节点，无需安装第三方节点包。
 - 四份权重合计约 50.75 GB（47.26 GiB）。另预留 ComfyUI、下载缓存和输出空间。16 GB 显卡运行时会在显存和系统内存之间卸载权重，首轮读取模型需要时间。
 
-## 下载模型
+## 手动安装时下载模型
 
 请按表格放入 `ComfyUI/` 下的对应目录，并保留原文件名。这里仅提供权重来源链接。
 
@@ -18,7 +26,7 @@
 | `minimax_h3_video_vae_int8_convrot.safetensors` | `models/vae/` | 2.81 GB | [Comfy-Org](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_video_vae_int8_convrot.safetensors) |
 | `minimax_h3_audio_vae_fp32.safetensors` | `models/vae/` | 0.61 GB | [Comfy-Org](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_audio_vae_fp32.safetensors) |
 
-## 导入并运行
+## 手动导入并运行
 
 1. 启动 ComfyUI。把 [minimax-h3-hybrid-r2v.json](minimax-h3-hybrid-r2v.json) 拖到画布上。
 2. 在 **Load Image** 节点上传 [h3-hybrid-reference.png](h3-hybrid-reference.png)，或提前把图片放在 `ComfyUI/input/`。换自己的参考图时，在 **MiniMax H3 Reference to Video** 节点修改提示词，可用 `<Picture 1>` 指代第一张参考图。
